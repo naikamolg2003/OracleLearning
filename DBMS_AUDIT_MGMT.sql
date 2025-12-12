@@ -1,0 +1,19 @@
+BEGIN
+  DBMS_AUDIT_MGMT.CLEAN_AUDIT_TRAIL(
+    audit_trail_type => DBMS_AUDIT_MGMT.AUDIT_TRAIL_UNIFIED,
+    use_last_arch_timestamp => TRUE);
+END;
+/
+BEGIN
+  DBMS_AUDIT_MGMT.SET_LAST_ARCHIVE_TIMESTAMP(
+    audit_trail_type => DBMS_AUDIT_MGMT.AUDIT_TRAIL_UNIFIED,
+    last_archive_time => SYSTIMESTAMP);
+END;
+/
+
+
+select * from dba_audit_policies;
+
+SELECT * FROM UNIFIED_AUDIT_TRAIL;
+
+SELECT * FROM UNIFIED_AUDIT_TRAIL where dbusername='TESTUSER1' AND EVENT_TIMESTAMP > TRUNC(SYSDATE);
